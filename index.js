@@ -1,5 +1,8 @@
 import { CronJob } from "cron";
 import axios from "axios";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:3001");
 
 const interval = 1;
 
@@ -20,7 +23,7 @@ const job = new CronJob(
         });
 
         // update frontend-web
-        // socket.emit("showLog");
+        socket.emit("showLog");
       } else {
         await axios.post("http://localhost:3001/api/v1/create-log", {
           description: `Failed to create call services`,
@@ -28,7 +31,7 @@ const job = new CronJob(
         });
 
         // update frontend-web
-        // socket.emit("showLog");
+        socket.emit("showLog");
       }
     } catch (error) {
       console.error("Error al hacer la solicitud:", error);
