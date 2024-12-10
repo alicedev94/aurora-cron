@@ -39,5 +39,5 @@ const job = new CronJob(
   "America/Caracas"
 );
 
-// Iniciar el trabajo cron
+// Start job in cron.
 job.start();
