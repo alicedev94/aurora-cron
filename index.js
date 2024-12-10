@@ -1,7 +1,9 @@
 import { CronJob } from 'cron';
 import axios from 'axios';
 
-const job = new CronJob('*/1  * * * *', async () => {
+const interval = 1; 
+
+const job = new CronJob(`*/${interval}  * * * *`, async () => {
   try {
     // start 
     const response = await axios.get('http://localhost:3001/api/v1/calls-services/set-incremental');
