@@ -13,8 +13,10 @@ import axios from "axios";
 
 const interval = 1;
 
+// send to api mobile 1min si tengo nuevos tecnicos que encvair 
+
 const job = new CronJob(
-  `*/${interval}  * * * *`,
+  `*/${interval} * * * *`,
   async () => {
     try {
       // start
@@ -26,22 +28,24 @@ const job = new CronJob(
         const callServicesAdded = response.data.insert_this.join(", ");
         await axios.post("http://localhost:3001/api/v1/create-log", {
           description: `Call services successfully created: ${callServicesAdded}`,
-          status: "start", // remplace for dynamic phrase.
+          status: "start", // replace for dynamic phrase.
         });
 
         // update frontend-web
         // socket.emit("showLog");
+      } else if (response.data?.message === 'Everything up-to-date') {
+        // no hacer nada
       } else {
         await axios.post("http://localhost:3001/api/v1/create-log", {
           description: `Failed to create call services`,
-          status: "error", // remplace for dynamic phrase.
+          status: "error", // replace for dynamic phrase.
         });
 
         // update frontend-web
         // socket.emit("showLog");
       }
     } catch (error) {
-      console.error("Error al hacer la solicitud:", error);
+      console.error("Error making request:", error);
     }
   },
   null,
