@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node --watch ./index.js",
+    "dev": "node --watch --env-file=.env ./index.js",
     "start": "pm2 start --env-file=.env dist/src/index.js",
     "format": "prettier --write src/**/*.js",
     "docs": "npx jsdoc -c jsdoc.json",
