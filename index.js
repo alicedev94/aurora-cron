@@ -1,69 +1,46 @@
-import { CronJob } from "cron";
-import axios from "axios";
+/**
+ * Importing the classes for the synchronization of business partners
+ */
+import BusinessPartnerJob from "./services/jobs/BUSSINESS_PARTNER/main.job.js";
 
-const interval = 1; // Intervalo en minutos
+/**
+ * Importing the classes for the synchronization of products
+ */
+import Products from "./services/jobs/PRODUCTS/main.job.js";
+import  ProductsMobile from "./services/jobs/PRODUCTS/mobile.job.js"; 
 
-// Proceso existente
-const job1 = new CronJob(
-  `*/${interval} * * * *`,
-  async () => {
-    try {
-      console.log("Iniciando proceso de sincronización de llamadas de servicio...");
+/**
+ * Configuration for business partner synchronization
+ * Execution interval: 1 hour (60 minutes)
+ * Limit of elements to synchronize: 1000
+ */
+const businessPartnerLimit = 1000;
+const businessPartnerInterval = 60; // Interval in minutes for 1 hour
 
-      const response = await axios.get("http://192.168.21.241:3036/api/v1/calls-services/set-incremental");
+const syncBusinessPartner = new BusinessPartnerJob(businessPartnerInterval, businessPartnerLimit);
+syncBusinessPartner.startJob();
 
-      if (response.data?.insert_this) {
-        const callServicesAdded = response.data.insert_this.join(", ");
-        await axios.post("http://192.168.21.241:3036/api/v1/create-log", {
-          description: `Call services successfully created: ${callServicesAdded}`,
-          status: "start",
-        });
-        console.log(`Call services successfully created: ${callServicesAdded}`);
-      } else if (response.data?.message === 'Everything up-to-date') {
-        console.log("No hay nuevos servicios de llamadas para sincronizar. Todo está actualizado.");
-      } else {
-        await axios.post("http://192.168.21.241:3036/api/v1/create-log", {
-          description: `Failed to create call services`,
-          status: "error",
-        });
-        console.log("Error al crear servicios de llamadas.");
-      }
-    } catch (error) {
-      console.error("Error making request:", error);
-    }
-  },
-  null,
-  true,
-  "America/Caracas"
-);
+/**
+ * Configuration for product synchronization
+ * Execution interval: 3 minutes
+ * Limit of elements to synchronize: 1000
+ */
+const productsLimit = 1000;
+const productsInterval = 3; // Interval in minutes
 
-// Nuevo proceso
-const job2 = new CronJob(
-  `*/${interval} * * * *`,
-  async () => {
-    try {
-      console.log("Iniciando proceso de envío de llamadas de servicio móvil...");
+const syncProducts = new Products(productsInterval, productsLimit);
+syncProducts.startJob();
 
-      const response = await axios.get("http://192.168.21.241:3036/api/v1/calls-services/mobile-send-service-calls");
+/**
+ * Configuration for product synchronization
+ * Execution interval: 5 minutes
+ * Limit of elements to synchronize: 1000
+ */
 
-      await axios.post("http://192.168.21.241:3036/api/v1/create-log", {
-        description: `Mobile service call executed successfully.`,
-        status: "info",
-      });
-      console.log("Mobile service call executed successfully.");
-    } catch (error) {
-      await axios.post("http://192.168.21.241:3036/api/v1/create-log", {
-        description: `Failed to execute mobile service call: ${error.message}`,
-        status: "error",
-      });
-      console.error("Error making request:", error);
-    }
-  },
-  null,
-  true,
-  "America/Caracas"
-);
+const productsMobileLimit = 1000;
+const productsMobileInterval = 5; // Interval in minutes
 
-// Iniciar ambos jobs
-job1.start();
-job2.start();
+const syncProductsWithAppMobile = new ProductsMobile(productsMobileInterval, productsMobileLimit);
+syncProductsWithAppMobile.startJob();
+
+
