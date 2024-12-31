@@ -7,7 +7,8 @@ import BusinessPartnerJob from "./services/jobs/BUSSINESS_PARTNER/main.job.js";
  * Importing the classes for the synchronization of products
  */
 import Products from "./services/jobs/PRODUCTS/main.job.js";
-import  ProductsMobile from "./services/jobs/PRODUCTS/mobile.job.js"; 
+import  ProductsMobile from "./services/jobs/PRODUCTS/mobile.job.js";
+import TechniciansMobile from "./services/jobs/TECHNICIANS/main.job.js";
 
 /**
  * Configuration for business partner synchronization
@@ -36,11 +37,19 @@ syncProducts.startJob();
  * Execution interval: 5 minutes
  * Limit of elements to synchronize: 1000
  */
-
 const productsMobileLimit = 1000;
 const productsMobileInterval = 5; // Interval in minutes
 
 const syncProductsWithAppMobile = new ProductsMobile(productsMobileInterval, productsMobileLimit);
 syncProductsWithAppMobile.startJob();
 
+
+/** 
+ * Configuration for technician synchronization
+ * Execution interval: 1 hour (60 minutes)
+ * Limit of elements to synchronize: 1000
+ */
+const techniciansMobileLimit = 1000;
+const syncTechniciansMobile = new TechniciansMobile(techniciansMobileLimit);
+syncTechniciansMobile.startJob();
 
