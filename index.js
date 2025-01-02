@@ -10,6 +10,15 @@ import Products from "./services/jobs/PRODUCTS/main.job.js";
 import  ProductsMobile from "./services/jobs/PRODUCTS/mobile.job.js";
 import TechniciansMobile from "./services/jobs/TECHNICIANS/main.job.js";
 
+/** *
+ * API URL AND PORT
+ */
+
+const API = process.env.API;
+const PORT = process.env.PORT;
+
+console.log(`API: ${API}:${PORT}`);
+
 /**
  * Configuration for business partner synchronization
  * Execution interval: 1 hour (60 minutes)

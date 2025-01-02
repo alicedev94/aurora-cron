@@ -3,14 +3,17 @@ import "dotenv/config";
 const API = process.env.API;
 const PORT = process.env.PORT;
 
+import { CronJob } from "cron";
+import axios from "axios";
+
 export default class TechniciansMobile {
   constructor(limit) {
-    this.limit = limit; // Límite
+    this.limit = limit; // Limit
   }
 
   startJob() {
     this.job = new CronJob(
-      "0 * * * *", // Ejecutar cada 'min' minutos
+      "0 * * * *", 
       async () => {
         try {
           console.log(
@@ -37,3 +40,4 @@ export default class TechniciansMobile {
     this.job.start();
   }
 }
+

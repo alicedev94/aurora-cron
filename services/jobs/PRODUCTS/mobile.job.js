@@ -3,6 +3,9 @@ import "dotenv/config";
 const API = process.env.API;
 const PORT = process.env.PORT;
 
+import { CronJob } from "cron";
+import axios from "axios";
+
 export default class ProductsMobile {
   constructor(min, limit) {
     this.min = min; // Intervalo en minutos
