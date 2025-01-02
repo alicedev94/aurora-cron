@@ -21,16 +21,10 @@ export default class TechniciansMobile {
             `${API}:${PORT}/technicians/mobile/sync/${this.limit}`,
           );
 
-          if (response.data?.insert_this) {
-            const techniciansAdded = response.data.insert_this.join(", ");
-            console.log(
-              `Technicians successfully created: ${techniciansAdded}`,
-            );
-          } else if (response.data?.message === "Everything up-to-date") {
-            console.log(
-              "No hay nuevos técnicos móviles para sincronizar. Todo está actualizado.",
-            );
-          }
+          console.log(
+            "Proceso de sincronización de técnicos móviles finalizado.",
+            response.data,
+          );
         } catch (error) {
           console.error("Error making request:", error);
         }

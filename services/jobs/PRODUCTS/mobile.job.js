@@ -22,14 +22,9 @@ export default class ProductsMobile {
             `${API}:${PORT}/products/mobile/sync/${this.limit}`,
           );
 
-          if (response.data?.insert_this) {
-            const productsAdded = response.data.insert_this.join(", ");
-            console.log(`Products successfully created: ${productsAdded}`);
-          } else if (response.data?.message === "Everything up-to-date") {
-            console.log(
-              "No hay nuevos productos móviles para sincronizar. Todo está actualizado.",
-            );
-          }
+          console.log(
+            "Proceso de sincronización de productos móviles finalizado.",
+            response.data);
         } catch (error) {
           console.error("Error making request:", error);
         }

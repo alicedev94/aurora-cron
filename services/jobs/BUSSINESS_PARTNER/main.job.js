@@ -24,16 +24,10 @@ export default class BusinessPartnerJob {
             `${API}:${PORT}/business-partners/sync/${this.limit}`,
           );
 
-          if (response.data?.insert_this) {
-            const businessPartnersAdded = response.data.insert_this.join(", ");
-            console.log(
-              `Business partners successfully created: ${businessPartnersAdded}`,
-            );
-          } else if (response.data?.message === "Everything up-to-date") {
-            console.log(
-              "No hay nuevos socios de negocio para sincronizar. Todo está actualizado.",
-            );
-          }
+   
+          console.log(
+            "Proceso de sincronización de socios de negocio finalizado.", response.data,
+          );
         } catch (error) {
           console.error("Error making request:", error);
         }
