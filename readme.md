@@ -1,4 +1,4 @@
-Claro, te explicaré cómo funciona cada asterisco (*) en una expresión cron. Los asteriscos son comodines que representan "cualquier valor" en una posición específica. Una expresión cron estándar tiene cinco campos separados por espacios, que representan:
+Los asteriscos son comodines que representan "cualquier valor" en una posición específica. Una expresión cron estándar tiene cinco campos separados por espacios, que representan:
 
 Minuto (0-59)
 
