@@ -1,7 +1,7 @@
 {
   "name": "aurora-cron",
   "version": "1.0.2-alpha.0",
-  "description": "lol",
+  "description": "sync data from aurora to mssql",
   "main": "index.js",
   "type": "module",
   "scripts": {
