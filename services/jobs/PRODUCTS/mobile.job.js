@@ -22,7 +22,7 @@ export default class ProductsMobile {
           );
 
           const response = await axios.get(
-            `${API}:${PORT}/products/mobile/sync/${this.limit}`,
+            `${API}/products/mobile/sync/${this.limit}`,
           );
 
           console.log(

@@ -6,25 +6,28 @@ const PORT = process.env.PORT;
 import { CronJob } from "cron";
 import axios from "axios";
 
-export default class Products {
-  constructor(min, limit) {
-    this.min = min; // Intervalo en minutos
+export default class TabulatorMobile {
+  constructor(limit) {
     this.limit = limit; // Límite
   }
 
   startJob() {
     this.job = new CronJob(
-      "0 * * * *",
-      // `*/${this.min} * * * *`, // Ejecutar cada 'min' minutos
+      "0 1 * * *", // Ejecutar cada hora en el minuto 0
       async () => {
         try {
-          console.log("Iniciando proceso de sincronización de productos...");
-
-          const response = await axios.get(
-            `${API}/products/sync/${this.limit}`,
+          console.log(
+            "Iniciando proceso de sincronización de tabuladores...",
           );
 
-          console.log("Proceso de sincronización de productos finalizado.", response.data);
+          const response = await axios.get(
+            `${API}/tabulator/mobile/sync/${this.limit}`,
+          );
+
+   
+          console.log(
+            "Proceso de sincronización de tabuladores.", response.data,
+          );
         } catch (error) {
           console.error("Error making request:", error);
         }

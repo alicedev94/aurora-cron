@@ -13,7 +13,7 @@ module.exports = {
         NODE_ENV: 'production',
         VERSION: '1.0.3-alpha.0',
       },
-      watch: true,
+      watch: false,
       autorestart: true,
       max_memory_restart: '1G',
       error_file: path.resolve(__dirname, './logs/pm2-err.log'),

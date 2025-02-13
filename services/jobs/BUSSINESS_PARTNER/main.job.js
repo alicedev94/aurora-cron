@@ -21,7 +21,7 @@ export default class BusinessPartnerJob {
           );
 
           const response = await axios.get(
-            `${API}:${PORT}/business-partners/sync/${this.limit}`,
+            `${API}/business-partners/sync/${this.limit}`,
           );
 
    

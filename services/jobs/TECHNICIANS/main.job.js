@@ -21,7 +21,7 @@ export default class TechniciansMobile {
           );
 
           const response = await axios.get(
-            `${API}:${PORT}/technicians/mobile/sync/${this.limit}`,
+            `${API}/technicians/mobile/sync/${this.limit}`,
           );
 
           console.log(
